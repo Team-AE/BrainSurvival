@@ -10,9 +10,9 @@ public:
     virtual void addChild(GameState *) {}
 
 protected:
-    void update(float);
-    void draw();
-    void eventProc(int);
+    virtual void update(float);
+    virtual void draw();
+    virtual void eventProc(int);
 };
 
 #endif // GAMEMODE_H
