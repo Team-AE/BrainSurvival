@@ -1,16 +1,17 @@
 #include "menu.h"
 #include <iostream>
 #include <SFMl/Graphics.hpp>
+#include "Graphics.h"
 
 const int Weight = 800;
 const int Height = 600;
 
 Menu::Menu()
 {
-	imgButton.create(400, 50, sf::Color::Blue);
+	imgButton.create(400, 50, sf::Color (0, 0 , 255));
 	
-	imgBackgound.create(Weight, Height, sf::Color::Blue);
-	imgBackgound.createMaskFromColor(sf::Color::Blue, 150);
+	imgBackgound.create(Weight, Height, sf::Color(0, 0, 255));
+	imgBackgound.createMaskFromColor(sf::Color(0, 0, 255), 150);
 
 	Backgound.loadFromImage(imgBackgound);
 	Button.loadFromImage(imgButton);
@@ -55,8 +56,8 @@ Menu::Menu()
 	buttom_text[0].setStyle(sf::Text::Bold);
 	buttom_text[1].setStyle(sf::Text::Bold);
 
-	buttom_text[0].setPosition(SpriteButton[0].getPosition.x + 50, SpriteButton[0].getPosition.y + 50);
-	buttom_text[1].setPosition(SpriteButton[1].getPosition.x + 50, SpriteButton[1].getPosition.y + 50);
+	buttom_text[0].setPosition(SpriteButton[0].getPosition().x + 50, SpriteButton[0].getPosition().y + 50);
+	buttom_text[1].setPosition(SpriteButton[1].getPosition().x + 50, SpriteButton[1].getPosition().y + 50);
 	
 	textMenu.setCharacterSize(24);
 	textMenu.setColor(sf::Color::Black);
@@ -71,14 +72,14 @@ void Menu::addChild(GameState* child)
 
 void Menu::draw()
 {
-	Window.clear();
-	Window.draw(SpriteBackground);
-	Window.draw(SpriteButton[0]);
-	Window.draw(SpriteButton[1]);
-	Window.draw(textMenu);
-	Window.draw(buttom_text[0]);
-	Window.draw(buttom_text[1]);
-	Window.display();
+	//Window.clear();
+	//Window.draw(SpriteBackground);
+	//Window.draw(SpriteButton[0]);
+	//Window.draw(SpriteButton[1]);
+	//Window.draw(textMenu);
+	//Window.draw(buttom_text[0]);
+	//Window.draw(buttom_text[1]);
+	//Window.display();
 
     std::cout << "test: Menu" << std::endl;
 }

@@ -8,7 +8,6 @@ public:
     GameState* run();
     virtual void addChild(GameState*) = 0;     //add new child
     virtual ~GameState(){}
-	static bool gameOver;
 
 protected:
     virtual void update(float) = 0;  //perform an action necessary to the current time
@@ -17,7 +16,7 @@ protected:
 
     GameState* nextState;
     bool activeState;
-	
+	static bool gameOver;
 };
 
 #endif // GAMESTATE_H
