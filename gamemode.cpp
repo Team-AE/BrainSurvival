@@ -28,6 +28,6 @@ void GameMode::update(float)
 }
 
 
-void GameMode::eventProc(sf::Event)
+void GameMode::eventProc(int)
 {
 }

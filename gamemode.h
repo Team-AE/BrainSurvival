@@ -12,7 +12,7 @@ public:
 protected:
     virtual void update(float);
     virtual void draw();
-    virtual void eventProc(sf::Event);
+    virtual void eventProc(int);
 };
 
 #endif // GAMEMODE_H

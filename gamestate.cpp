@@ -1,13 +1,9 @@
 #include "gamestate.h"
-#include <SFML/Graphics.hpp>
-
-const int Widht = 800;
-const int Height = 600;
 
 GameState* GameState::run()
 {
     activeState = true;
-	gameOver = false;
+
     while(activeState)
     {
 //        if(event)
