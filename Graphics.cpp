@@ -7,37 +7,42 @@ Graphics::Graphics()
 
 	Window.create(sf::VideoMode(Widht, Height), "Brain survival", sf::Style::Default, settings);
 
-	WindowRun();
 }
 
 void Graphics::update()
 {
-	Window.clear();
-}
-
-void Graphics::WindowRun()
-{
-	while (Window.isOpen())
+	for (int i = 0; i < Sprites.size(); i++)
 	{
-		update();
+		Window.draw(*Sprites[i]);
 	}
-}
-
-void Graphics::draw(sf::Sprite sprite)
-{
-	Window.draw(sprite);
-	onDisplay();
-}
-
-void Graphics::draw(sf::Text text)
-{
-	Window.draw(text);
-	onDisplay();
+		Sprites.clear();
+		
+	for (int i = 0; i < Texts.size(); i++)
+	{
+		Window.draw(*Texts[i]);
+	}
+		Texts.clear();
 }
 
 void Graphics::onDisplay()
 {
+	Window.clear();
+	update();
 	Window.display();
 }
+
+void Graphics::draw(sf::Sprite &inSprite)
+{
+	
+Sprites.push_back (&inSprite);
+
+}
+
+void Graphics::draw(sf::Text &inText)
+{
+	Texts.push_back(&inText);
+}
+
+
 
 

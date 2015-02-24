@@ -25,6 +25,11 @@ protected:
 	sf::Sprite* SpriteButton;
 	sf::Sprite SpriteBackground;
 	sf::Font font;
+
+	void setTexts();
+	void setTexures();
+	void setImages();
+	void setSprites();
 };
 
 #endif // MENU_H

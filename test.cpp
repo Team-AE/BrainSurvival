@@ -1,5 +1,7 @@
 #include "menu.h"
 #include "gamemode.h"
+#include "Graphics.h"
+#include <iostream>
 
 
 int main()
@@ -8,7 +10,7 @@ int main()
     GameState* state2 = new GameMode(state1);
     GameState* currentState = state1;
 
-    for(int i = 0; i < 5; ++i)
+	while (1)
         currentState = currentState->run();
 
     return 0;
