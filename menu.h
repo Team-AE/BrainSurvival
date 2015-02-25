@@ -3,6 +3,7 @@
 #include "gamestate.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "NewPlayer.h"
 
 class Menu : public GameState
 {
@@ -17,13 +18,17 @@ protected:
     void update(float);
     void draw();
     void eventProc(sf::Event);
+	sf::Image imgBackgound;
+	sf::Texture Backgound;
+	sf::Sprite SpriteBackground;
 
-	sf::Image imgButton, imgBackgound;
-	sf::Texture Backgound, Button;
+private:
+	sf::Image imgButton;
+	sf::Texture Button;
 	sf::Text* buttom_text;
 	sf::Text textMenu;
 	sf::Sprite* SpriteButton;
-	sf::Sprite SpriteBackground;
+	
 	sf::Font font;
 
 	void setTexts();
@@ -32,6 +37,8 @@ protected:
 	void setSprites();
 	void nextText();
 	void buttonClick();
+	void enterNamePlayer();
 };
+
 
 #endif // MENU_H
