@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SFMl/Graphics.hpp>
 #include "Graphics.h"
+#include "Sound.h"
 
 const int Weight = 800;
 const int Height = 600;
@@ -15,7 +16,11 @@ Menu::Menu()
 	setSprites();
 	
 	setTexts();
+}
 
+void Menu::enterNamePlayer()
+{
+	
 }
 
 void Menu::setSprites()
@@ -83,12 +88,10 @@ void Menu::setTexures()
 
 void Menu::setImages()
 {
-	//imgButton.create(400, 50, sf::Color::Blue);
 	imgButton.loadFromFile("button.png");
 	imgButton.createMaskFromColor(sf::Color(255,255,255), 0);
 
 	imgBackgound.loadFromFile("background.png");
-	//imgBackgound.createMaskFromColor(sf::Color::Blue, 50);
 }
 
 
@@ -122,6 +125,7 @@ void Menu::update(float)
 {
 	nextText();
     draw();
+	Sound::Instance().PlayMenuTheme();
     nextState = *children.begin();
     activeState = false;
 }
@@ -133,12 +137,17 @@ void Menu::buttonClick()
 	if (sf::Mouse::getPosition(Graphics::Instance().Window).x >= SpriteButton[0].getPosition().x &&
 		sf::Mouse::getPosition(Graphics::Instance().Window).x < SpriteButton[0].getPosition().x + Button.getSize().x &&
 		sf::Mouse::getPosition(Graphics::Instance().Window).y >= SpriteButton[0].getPosition().y &&
-		sf::Mouse::getPosition(Graphics::Instance().Window).y <= SpriteButton[0].getPosition().y + Button.getSize().y)
+		sf::Mouse::getPosition(Graphics::Instance().Window).y < SpriteButton[0].getPosition().y + Button.getSize().y)
 	{
 		SpriteButton[0].setScale(1.1f, 1.1f);
 		SpriteButton[0].setPosition((Weight - Button.getSize().x *1.1) / 2, 120 * 1.1);
 		buttom_text[0].setCharacterSize(24 * 1.1);
 		buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - buttom_text[0].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
+	
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			enterNamePlayer();
+		}
 	}
 
 	else
