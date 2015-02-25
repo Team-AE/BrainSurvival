@@ -17,6 +17,7 @@ protected:
     GameState* nextState;
     bool activeState;
 	static bool gameOver;
+	static sf::Event event;
 };
 
 #endif // GAMESTATE_H

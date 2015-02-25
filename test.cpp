@@ -10,7 +10,7 @@ int main()
     GameState* state2 = new GameMode(state1);
     GameState* currentState = state1;
 
-	while (1)
+	while (Graphics::Instance().Window.isOpen())
         currentState = currentState->run();
 
     return 0;

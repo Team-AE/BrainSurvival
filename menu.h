@@ -30,6 +30,8 @@ protected:
 	void setTexures();
 	void setImages();
 	void setSprites();
+	void nextText();
+	void buttonClick();
 };
 
 #endif // MENU_H

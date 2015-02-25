@@ -64,7 +64,7 @@ void Menu::setTexts()
 	buttom_text[0].setStyle(sf::Text::Bold);
 	buttom_text[1].setStyle(sf::Text::Bold);
 
-	buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - buttom_text[0].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
+	buttom_text[0].setPosition((SpriteButton[0].getPosition().x + Button.getSize().x / 2 )-40, Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
 	buttom_text[1].setPosition(SpriteButton[1].getPosition().x + Button.getSize().x / 2 - buttom_text[1].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[1].getPosition().y - 20);
 
 	textMenu.setCharacterSize(40);
@@ -110,19 +110,70 @@ void Menu::draw()
 
 }
 
+void Menu::nextText()
+{
+	if (gameOver)
+		buttom_text[0].setString("Start");
+	else
+		buttom_text[0].setString("Next");
+}
+
 void Menu::update(float)
 {
+	nextText();
     draw();
     nextState = *children.begin();
     activeState = false;
 }
 
-void Menu::eventProc(sf::Event)
+void Menu::buttonClick()
 {
+	
 
 	if (sf::Mouse::getPosition(Graphics::Instance().Window).x >= SpriteButton[0].getPosition().x &&
-		sf::Mouse::getPosition().x <= SpriteButton[0].getPosition().x + Button.getSize().x &&
+		sf::Mouse::getPosition(Graphics::Instance().Window).x < SpriteButton[0].getPosition().x + Button.getSize().x &&
 		sf::Mouse::getPosition(Graphics::Instance().Window).y >= SpriteButton[0].getPosition().y &&
-		sf::Mouse::getPosition().y <= SpriteButton[0].getPosition().y + Button.getSize().y)
-		std::cout << "Buttom";
+		sf::Mouse::getPosition(Graphics::Instance().Window).y <= SpriteButton[0].getPosition().y + Button.getSize().y)
+	{
+		SpriteButton[0].setScale(1.1f, 1.1f);
+		SpriteButton[0].setPosition((Weight - Button.getSize().x *1.1) / 2, 120 * 1.1);
+		buttom_text[0].setCharacterSize(24 * 1.1);
+		buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - buttom_text[0].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
+	}
+
+	else
+	{
+		SpriteButton[0].setScale(1.0f, 1.0f);
+		SpriteButton[0].setPosition((Weight - Button.getSize().x) / 2, 120);
+		buttom_text[0].setCharacterSize(24);
+		buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - 40, Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
+	}
+	if (sf::Mouse::getPosition(Graphics::Instance().Window).x >= SpriteButton[1].getPosition().x &&
+		sf::Mouse::getPosition(Graphics::Instance().Window).x < SpriteButton[1].getPosition().x + Button.getSize().x &&
+		sf::Mouse::getPosition(Graphics::Instance().Window).y >= SpriteButton[1].getPosition().y &&
+		sf::Mouse::getPosition(Graphics::Instance().Window).y <= SpriteButton[1].getPosition().y + Button.getSize().y)
+	{
+		SpriteButton[1].setScale(1.1f, 1.1f);
+		SpriteButton[1].setPosition((Weight - Button.getSize().x*1.1) / 2, 100 + Button.getSize().y + 100 * 1.1);
+		buttom_text[1].setCharacterSize(24 * 1.1);
+		buttom_text[1].setPosition(SpriteButton[1].getPosition().x + Button.getSize().x*1.1 / 2 - buttom_text[1].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[1].getPosition().y - 20);
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			Graphics::Instance().Window.close();
+		}
+	}
+	else
+	{
+		SpriteButton[1].setScale(1.0f, 1.0f);
+		SpriteButton[1].setPosition((Weight - Button.getSize().x) / 2, 100 + Button.getSize().y + 100);
+		buttom_text[1].setCharacterSize(24);
+		buttom_text[1].setPosition(SpriteButton[1].getPosition().x + Button.getSize().x / 2 - buttom_text[1].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[1].getPosition().y - 20);
+	}
+
+}
+
+void Menu::eventProc(sf::Event)
+{
+	buttonClick();
 }
