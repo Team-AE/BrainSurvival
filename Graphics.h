@@ -8,6 +8,7 @@ public:
 	static Graphics& Instance()
 	{
 		static Graphics theSingleInstance;
+		sf::Thread window(Graphics());
 		return theSingleInstance;
 	}
 
