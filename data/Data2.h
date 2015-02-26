@@ -1,10 +1,6 @@
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
 
-
-
-typedef std::vector<sf::Vector2f *> Map;
 class Player
 {
 private:
@@ -24,7 +20,7 @@ class Data
 private:
 	//static const char FILE_B[11] ;
 	static const std::string FILE_B;
-	static Data * p_Data;
+	static Data p_Data;
 	Player pl;
 	Data(){};
 	Data(const Data&);
@@ -35,12 +31,12 @@ public:
 	void set_pl_score(int i){return pl.set_score(i); }
 	void set_pl_name(std::string n){return pl.set_name(n); }
 
-	bool set_board(const Player & pl);
+	void set_board(const Player & pl);
 	std::vector<Player> get_board();
 
-	static Data * instance() {
-		if (!p_Data)
-			p_Data = new Data();
+	static Data & instance() 
+	{
+		static Data p_Data;
 		return p_Data;
 	}
 };
