@@ -8,7 +8,6 @@ public:
 	static Graphics& Instance()
 	{
 		static Graphics theSingleInstance;
-		sf::Thread window(Graphics());
 		return theSingleInstance;
 	}
 
@@ -19,17 +18,20 @@ public:
 	void draw(sf::Sprite&);
 	void draw(sf::Text&);
 	void onDisplay();
+	void windowClear();
 
 	std::vector<sf::Sprite*> Sprites;
 	std::vector<sf::Text*> Texts;
 	sf::RenderWindow Window;
+	
+	const int Widht = 1000;
+	const int Height = 500;
 
 private:
 	
 	sf::ContextSettings settings;
 	
-	const int Widht = 800;
-	const int Height = 600;
+	
 };
 
 

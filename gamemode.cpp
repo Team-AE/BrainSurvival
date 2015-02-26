@@ -18,20 +18,15 @@ void GameMode::draw()
 void GameMode::update(float)
 {
     static int count = 0;
-
+	activeState = true;
 	gameOver = true;
-
-    if(count > 3)
-        activeState = false;
-    else
-    {
-        draw();
+	
+    draw();
         ++count;
-    }
 }
 
 
-void GameMode::eventProc(sf::Event)
+void GameMode::eventProc(sf::Event event)
 {
 	while (Graphics::Instance().Window.pollEvent(event))
 	{

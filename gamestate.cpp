@@ -2,8 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Graphics.h"
 
-const int Widht = 800;
-const int Height = 600;
 bool GameState::gameOver = true;
 sf::Event GameState::event;
 

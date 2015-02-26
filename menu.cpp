@@ -2,9 +2,17 @@
 #include <iostream>
 #include <SFMl/Graphics.hpp>
 #include "Graphics.h"
+#include "Sound.h"
+#include "NewPlayer.h"
+#include "GameState.h"
 
-const int Weight = 800;
-const int Height = 600;
+bool Menu::subMenu=false;
+
+Menu::Menu(GameState* parent)
+{
+	nextState = parent;
+	parent->addChild(this);
+}
 
 Menu::Menu()
 {
@@ -18,6 +26,11 @@ Menu::Menu()
 
 }
 
+void Menu::enterNamePlayer()
+{
+	subMenu = true;
+}
+
 void Menu::setSprites()
 {
 	SpriteButton = new sf::Sprite[2];
@@ -27,8 +40,8 @@ void Menu::setSprites()
 
 	SpriteBackground.setPosition(0, 0);
 
-	SpriteButton[0].setPosition((Weight - Button.getSize().x) / 2, 120);
-	SpriteButton[1].setPosition((Weight - Button.getSize().x) / 2, 100 + Button.getSize().y + 100);
+	SpriteButton[0].setPosition((Graphics::Instance().Widht - Button.getSize().x) / 2, 120);
+	SpriteButton[1].setPosition((Graphics::Instance().Widht - Button.getSize().x) / 2, 100 + Button.getSize().y + 100);
 }
 
 void Menu::setTexts()
@@ -70,7 +83,7 @@ void Menu::setTexts()
 	textMenu.setCharacterSize(40);
 	textMenu.setColor(sf::Color::Yellow);
 	textMenu.setStyle(sf::Text::Bold);
-	textMenu.setPosition(Weight / 2 - 50, 30);
+	textMenu.setPosition(Graphics::Instance().Widht / 2 - 50, 30);
 }
 
 void Menu::setTexures()
@@ -83,15 +96,11 @@ void Menu::setTexures()
 
 void Menu::setImages()
 {
-	//imgButton.create(400, 50, sf::Color::Blue);
 	imgButton.loadFromFile("button.png");
 	imgButton.createMaskFromColor(sf::Color(255,255,255), 0);
 
 	imgBackgound.loadFromFile("background.png");
-	//imgBackgound.createMaskFromColor(sf::Color::Blue, 50);
 }
-
-
 
 void Menu::addChild(GameState* child)
 {
@@ -122,8 +131,17 @@ void Menu::update(float)
 {
 	nextText();
     draw();
+	//Sound::Instance().PlayMenuTheme();
+	if (subMenu)
+	{	
+		nextState = children[1];
+		activeState = false;
+	}
+	else
+	{
+	activeState = true;
     nextState = *children.begin();
-    activeState = false;
+	}
 }
 
 void Menu::buttonClick()
@@ -133,18 +151,23 @@ void Menu::buttonClick()
 	if (sf::Mouse::getPosition(Graphics::Instance().Window).x >= SpriteButton[0].getPosition().x &&
 		sf::Mouse::getPosition(Graphics::Instance().Window).x < SpriteButton[0].getPosition().x + Button.getSize().x &&
 		sf::Mouse::getPosition(Graphics::Instance().Window).y >= SpriteButton[0].getPosition().y &&
-		sf::Mouse::getPosition(Graphics::Instance().Window).y <= SpriteButton[0].getPosition().y + Button.getSize().y)
+		sf::Mouse::getPosition(Graphics::Instance().Window).y < SpriteButton[0].getPosition().y + Button.getSize().y)
 	{
 		SpriteButton[0].setScale(1.1f, 1.1f);
-		SpriteButton[0].setPosition((Weight - Button.getSize().x *1.1) / 2, 120 * 1.1);
+		SpriteButton[0].setPosition((Graphics::Instance().Widht - Button.getSize().x *1.1) / 2, 120 * 1.1);
 		buttom_text[0].setCharacterSize(24 * 1.1);
 		buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - buttom_text[0].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
+	
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			enterNamePlayer();
+		}
 	}
 
 	else
 	{
 		SpriteButton[0].setScale(1.0f, 1.0f);
-		SpriteButton[0].setPosition((Weight - Button.getSize().x) / 2, 120);
+		SpriteButton[0].setPosition((Graphics::Instance().Widht - Button.getSize().x) / 2, 120);
 		buttom_text[0].setCharacterSize(24);
 		buttom_text[0].setPosition(SpriteButton[0].getPosition().x + Button.getSize().x / 2 - 40, Button.getSize().y / 2 + SpriteButton[0].getPosition().y - 20);
 	}
@@ -154,7 +177,7 @@ void Menu::buttonClick()
 		sf::Mouse::getPosition(Graphics::Instance().Window).y <= SpriteButton[1].getPosition().y + Button.getSize().y)
 	{
 		SpriteButton[1].setScale(1.1f, 1.1f);
-		SpriteButton[1].setPosition((Weight - Button.getSize().x*1.1) / 2, 100 + Button.getSize().y + 100 * 1.1);
+		SpriteButton[1].setPosition((Graphics::Instance().Widht - Button.getSize().x*1.1) / 2, 100 + Button.getSize().y + 100 * 1.1);
 		buttom_text[1].setCharacterSize(24 * 1.1);
 		buttom_text[1].setPosition(SpriteButton[1].getPosition().x + Button.getSize().x*1.1 / 2 - buttom_text[1].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[1].getPosition().y - 20);
 
@@ -166,14 +189,20 @@ void Menu::buttonClick()
 	else
 	{
 		SpriteButton[1].setScale(1.0f, 1.0f);
-		SpriteButton[1].setPosition((Weight - Button.getSize().x) / 2, 100 + Button.getSize().y + 100);
+		SpriteButton[1].setPosition((Graphics::Instance().Widht - Button.getSize().x) / 2, 100 + Button.getSize().y + 100);
 		buttom_text[1].setCharacterSize(24);
 		buttom_text[1].setPosition(SpriteButton[1].getPosition().x + Button.getSize().x / 2 - buttom_text[1].getCharacterSize(), Button.getSize().y / 2 + SpriteButton[1].getPosition().y - 20);
 	}
 
 }
 
-void Menu::eventProc(sf::Event)
+void Menu::eventProc(sf::Event event)
 {
 	buttonClick();
+
+	while (Graphics::Instance().Window.pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			Graphics::Instance().Window.close();
+	}
 }

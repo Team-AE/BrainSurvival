@@ -42,6 +42,10 @@ void Graphics::draw(sf::Text &inText)
 {
 	Texts.push_back(&inText);
 }
+void Graphics::windowClear()
+{
+	Window.clear();
+}
 
 
 

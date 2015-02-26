@@ -4,6 +4,7 @@
 
 class GameMode : public GameState
 {
+
 public:
     GameMode(GameState*);
 
