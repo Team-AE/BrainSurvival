@@ -3,9 +3,17 @@
 #include <SFMl/Graphics.hpp>
 #include "Graphics.h"
 #include "Sound.h"
+#include "NewPlayer.h"
 
 const int Weight = 800;
 const int Height = 600;
+bool Menu::subMenu=false;
+
+Menu::Menu(GameState* parent)
+{
+	nextState = parent;
+	parent->addChild(this);
+}
 
 Menu::Menu()
 {
@@ -16,11 +24,12 @@ Menu::Menu()
 	setSprites();
 	
 	setTexts();
+
 }
 
 void Menu::enterNamePlayer()
 {
-	
+	subMenu = true;
 }
 
 void Menu::setSprites()
@@ -126,8 +135,17 @@ void Menu::update(float)
 	nextText();
     draw();
 	Sound::Instance().PlayMenuTheme();
+	if (subMenu)
+	{	
+		std::cout<<children.size();
+		nextState = children[1];
+		activeState = false;
+	}
+	else
+	{
+	activeState = true;
     nextState = *children.begin();
-    activeState = false;
+	}
 }
 
 void Menu::buttonClick()
@@ -185,4 +203,10 @@ void Menu::buttonClick()
 void Menu::eventProc(sf::Event)
 {
 	buttonClick();
+
+	while (Graphics::Instance().Window.pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			Graphics::Instance().Window.close();
+	}
 }

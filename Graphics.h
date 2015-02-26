@@ -18,6 +18,7 @@ public:
 	void draw(sf::Sprite&);
 	void draw(sf::Text&);
 	void onDisplay();
+	void windowClear();
 
 	std::vector<sf::Sprite*> Sprites;
 	std::vector<sf::Text*> Texts;

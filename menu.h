@@ -3,14 +3,12 @@
 #include "gamestate.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "NewPlayer.h"
 
 class Menu : public GameState
 {
-    std::vector<GameState*> children;
-	
-
+	std::vector<GameState*> children;
 public:
+	Menu(GameState*);
     void addChild(GameState*);
 	Menu();
 
@@ -30,6 +28,8 @@ private:
 	sf::Sprite* SpriteButton;
 	
 	sf::Font font;
+
+	static bool subMenu;
 
 	void setTexts();
 	void setTexures();

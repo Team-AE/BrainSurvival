@@ -18,16 +18,11 @@ void GameMode::draw()
 void GameMode::update(float)
 {
     static int count = 0;
-
+	activeState = true;
 	gameOver = true;
-
-    if(count > 3)
-        activeState = false;
-    else
-    {
-        draw();
+	
+    draw();
         ++count;
-    }
 }
 
 

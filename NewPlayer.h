@@ -5,12 +5,10 @@
 
 class NewPlayer : public Menu
 {
-std::vector<GameState*> children;
-
 
 public:
-	void addChild(GameState*);
-	NewPlayer();
+	
+	NewPlayer(GameState*);
 
 protected:
 	void update(float);
