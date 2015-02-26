@@ -31,7 +31,7 @@ public:
 	void set_pl_score(int i){return pl.set_score(i); }
 	void set_pl_name(std::string n){return pl.set_name(n); }
 
-	void set_board(const Player & pl);
+	void set_board();
 	std::vector<Player> get_board();
 
 	static Data & instance() 
