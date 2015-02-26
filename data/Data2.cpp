@@ -8,8 +8,9 @@ const std::string Data::FILE_B = "Board.txt";
 //const char Data::FILE_B[] = { "Board.txt\0" };
 //'B','o','a','r','d','.','t','x','t','\0'
 
-void Data::set_board(const Player & pl)
+void Data::set_board()
 {
+	Player pl = Data::pl;
 	std::vector<Player> n = get_board();
 	if (n.size() <= 0)n.push_back(pl);
 	else {
